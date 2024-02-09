@@ -1,0 +1,49 @@
+import random
+import string
+import math
+from pyspark.sql import functions as F
+from pyspark.sql.functions import udf
+from pyspark.sql.types import StringType
+
+def randomString(length):
+    letters = string.ascii_letters
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    return result_str
+
+def clustered(x,numRows):
+    return math.floor(x -1)/numRows
+
+def clustered2(col, numRows):
+    return (col - 1) / numRows  # Use column operations within the function
+
+
+def scattered(x,numRows):
+    return abs((x -1 % numRows))* 1.0
+
+def randomised(seed,numRows):
+    random.seed(seed)
+    return abs(random.randint(0, numRows) % numRows) * 1.0
+
+def randomised2(col, numRows):
+    return F.abs(F.randn(seed=None) * numRows)  # Seeding within function
+
+def padString(x,chars,length):
+    n = int(x) + 1
+    result_str = ''.join(random.choice(chars) for i in range(length-n)) + str(x)
+    return result_str
+
+def padString2(col, length, chars):
+    result_str = F.concat_ws(
+        "",
+        F.expr("sequence(1, {})".format(length)),
+        col.cast("string")
+    )
+    return result_str
+
+def padSingleChar(chars,length):
+    result_str = ''.join(chars for i in range(length))
+    return result_str
+
+def println(lst):
+    for ll in lst:
+      print(ll[0])

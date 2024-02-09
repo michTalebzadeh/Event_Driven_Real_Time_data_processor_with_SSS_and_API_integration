@@ -1,0 +1,18 @@
+common:
+  appName: 'test'
+
+statics:
+  driver: com.mysql.cj.jdbc.Driver
+  user: scratchpad
+  password: oracle
+  dbschema: scratchpad
+  host: localhost
+  sourceTable: test_ukhouseprices
+  fetchsize: "1000"
+  yearlyAveragePricesAllTable: test_yearlyAvgPrice
+  percentYearlyHousePriceChange: "test_percentyearlyhousepricechange"
+  read_df_rows: 200
+  transformation_df_rows: 18
+  mode: overwrite
+  fetchsize: "1000"
+

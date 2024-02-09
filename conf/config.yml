@@ -1,0 +1,147 @@
+common:
+  appName: 'md'
+  newtopic: 'newtopic'
+plot_fonts:
+  font:
+    'family': 'serif'
+    'color': 'darkred'
+    'weight': 'normal'
+    'size': 10
+
+  # define font dictionary
+  font_small:
+    'family': 'serif'
+    'color': 'darkred'
+    'weight': 'normal'
+    'size': 7
+
+hiveVariables:
+  DSDB: DS
+  regionname: "Kensington and Chelsea"
+  Boston_csvlocation: hdfs://rhes75:9000/ds/Boston.csv
+  London_csvLocation: hdfs://rhes75:9000/ds/UK-HPI-full-file-2020-01.csv
+  hive_driver: com.cloudera.hive.jdbc41.HS2Driver
+  #hive_driver: "com.ddtek.jdbcx.hive.HiveDataSource"
+  #hive_driver: "com.ddtek.jdbc.hive.HiveDriver"
+  #hive_driver: "org.apache.hive.jdbc.HiveDriver"
+  hiveHost: rhes75
+  hivePort: "10099"
+  #hive_url: "jdbc:hive2://rhes75:10099/default;"
+  hive_user: hduser
+  hive_password: hduser
+  fetchsize: "1000"
+
+GCPVariables:
+  projectId: 'axial-glow-224522'
+  datasetLocation: "europe-west2"
+  bucketname: 'etcbucket'
+  sourceDataset: "staging"
+  sourceTable: "ukhouseprices"
+  inputTable: sourceDataset+"."+sourceTable
+  fullyQualifiedInputTableId: projectId+":"+inputTable
+  targetDataset: "ds"
+  targetTable: "summary"
+  outputTable: targetDataset+"."+targetTable
+  fullyQualifiedoutputTableId: projectId+":"+outputTable
+  tmp_bucket: "tmp_storage_bucket/tmp"
+  jsonKeyFile: "/home/hduser/GCPFirstProject-d75f1b3a9817.json"
+  DB: "DS"
+  yearlyAveragePricesAllTable: "yearlyaveragepricesAllTable"
+  percentYearlyHousePriceChange: "percentyearlyhousepricechange"
+
+ParquetVariables:
+  sourceLocation: "gs://etcbucket/randomdata/archive/randomdatapy"
+  targetLocation: "gs://etcbucket/randomdatapy_target"
+  sourceSmall: "gs://etcbucket/randomdata/archive/randomdatasmall"
+  append: "append"
+  overwrite: "overwrite"
+
+OracleVariables:
+  oracle_driver: oracle.jdbc.OracleDriver
+  oracle_user: scratchpad
+  oracle_password: oracle
+  dbschema: SCRATCHPAD
+  oracleHost: rhes76
+  oraclePort: "1521"
+  oracleDB: orasource
+  serviceName: 'orasource.mich.local'
+  #url: jdbc:oracle:thin:@{{oracleHost}}:{{oraclePort}}:{{oracleDB}}
+  #oracle_url: "jdbc:oracle:thin:@rhes564:1521:mydb12"
+  serviceName: 'orasource.mich.local'
+  sourceTable: ukhouseprices
+  fetchsize: "1000"
+  mode: "overwrite"
+  yearlyAveragePricesAllTable: "yearlyaveragepricesAllTable"
+  percentYearlyHousePriceChange: "percentyearlyhousepricechange"
+
+MysqlVariables:
+  Mysql_driver: com.mysql.cj.jdbc.Driver
+  Mysql_user: scratchpad
+  Mysql_password: oracle
+  dbschema: scratchpad
+  MysqlHost: localhost
+  sourceTable: test_ukhouseprices
+  fetchsize: "1000"
+  yearlyAveragePricesAllTable: test_yearlyAvgPrice
+  percentYearlyHousePriceChange: "test_percentyearlyhousepricechange"
+  read_df_rows: 200
+  mode: overwrite
+
+MDVariables:
+  batchInterval: 2
+  tickerWatch: "VOD"
+  priceWatch: 300.0
+  op_type: "1"
+  op_type_API: "GET"
+  currency: GBP
+  tickerType: "short"
+  tickerClass: "asset"
+  tickerStatus: "valid"
+  confidenceLevel: "1.645"
+  bootstrapServers: "rhes75:9092,rhes75:9093,rhes75:9094,rhes76:9092,rhes76:9093,rhes76:9094,rhes76:9095,rhes76:9096,rhes76:9097"
+  zookeeperConnectionTimeoutM: "10000"
+  zookeeperSessionTimeOutMs: "15000"
+  sparkDefaultParallelism: "12"
+  sparkSerializer: "org.apache.spark.serializer.KryoSerializer"
+  sparkNetworkTimeOut: "3600"
+  sparkStreamingUiRetainedBatches: "5"
+  sparkWorkerUiRetainedDrivers: "5"
+  sparkWorkerUiRetainedExecutors: "30"
+  sparkWorkerUiRetainedStages: "100"
+  sparkUiRetainedJobs: "100"
+  sparkStreamingReceiverMaxRate: "0"
+  sparkStreamingKafkaMaxRatePerPartition: "600"
+  sparkStreamingBackpressurePidMinRate: "2000"
+  schemaRegistryURL: "http://rhes75:8081"
+  rebalanceBackoffMS: "15000"
+  zookeeperConnectionTimeoutMs: "10000"
+  autoCommitIntervalMS: "12000"
+  topic: "md"
+  newtopic: "newtopic"
+  projectId: 'axial-glow-224522'
+  datasetLocation: "europe-west2"
+  targetDataset: "test"
+  targetTable: "md"
+  outputTable: targetDataset+"."+targetTable
+  fullyQualifiedoutputTableId: projectId+":"+outputTable
+  speedTable: targetDataset+"."+"mdspeed"
+  fullyQualifiedspeedTableId: projectId+":"=speedTable
+  tmp_bucket: "tmp_storage_bucket/tmp"
+  jsonKeyFile: "/home/hduser/GCPFirstProject-d75f1b3a9817.json"
+  DB: "test"
+  rows_to_insert: "10"  
+  movingAverages: 14
+  confidenceLevel: 1.645
+  targetSpeedTable: mdspeed
+  mode: append
+
+RedisVariables:
+  redisHost: rhes76
+  redisPort: "6379"
+  redisDB: '1'
+  Redis_user: hduser
+  Redis_password: hduser
+  targetTable: md
+  keyColumn: rowkey
+  mode: append
+
