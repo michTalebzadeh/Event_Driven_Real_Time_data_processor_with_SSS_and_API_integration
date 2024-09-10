@@ -212,7 +212,7 @@ api.add_resource(
 if __name__ == '__main__':
     # Explicitly set the hostname and port
     host = '0.0.0.0'  # Allow external connections
-    port = 9999
+    port = 7999
     # Run the Flask app in a separate thread
     flask_thread = threading.Thread(target=app.run, kwargs={'debug': False, 'host': host, 'port': port})
     flask_thread.start()

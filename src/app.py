@@ -9,6 +9,7 @@ import time
 
 
 host = socket.gethostname()
+print(f"\n\n hostt is {host}\n\n")
 port = 8999
 endpoint='/api/data'
 api_url = f'http://{host}:{port}{endpoint}'
